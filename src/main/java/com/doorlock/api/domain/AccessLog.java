@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -41,7 +42,7 @@ public class AccessLog {
     @Column(name = "result", nullable = false)
     private AccessResult result;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "occurred", updatable = false)
+    @CreationTimestamp
+    @Column(name = "occurred_at", updatable = false)
     private LocalDateTime occurredAt;
 }

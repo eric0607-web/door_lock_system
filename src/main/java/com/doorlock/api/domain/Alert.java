@@ -12,29 +12,26 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "alert")
+public class Alert {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Long id;
+    private Long id;
 
-    @Column(nullable = false, unique = true)
-    private  String email;
-
-    @Column(name = "password_hash", nullable = false)
-    private  String passwardHash;
-
-    @Column(nullable = false)
-    private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id", nullable = false)
+    private Store store;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Role role;
+    private AlertrType type;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id")
-    private Store store;
+    @Column(nullable = false)
+    private String message;
+
+    @Column(nullable = false)
+    private boolean resolved = false;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
