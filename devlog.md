@@ -32,3 +32,10 @@ FetchType.LAZY <=> FetchType.EAGER
 
 ![최종 ERD](doc\20260915_ERD.png)
 9월 15일 기준 최종 ERD
+
+Flyway 마이그레이션 SQL 작명 규칙
+V(대문자){버전}__{설명}.sql
+DB수정시 V2 또는 V1.1 같은 소수점으로 변경해서 새로 만들어야함
+
+오늘 정리 엔티티 작성+관련 enum 작성+SQL문 작성+마이그레이션+Hibernate가 검증 
+=> 성공!
