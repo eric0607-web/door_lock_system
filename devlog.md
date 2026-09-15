@@ -29,3 +29,6 @@ fetch = FetchType.LAZY = 지연로딩 성능의 차이 불필요한 조회를 �
 FetchType.LAZY <=> FetchType.EAGER
 
 @MapsId + @OneToOne 다른 테이블의 기본키를 외례키로 지정하는 것이 아니라 기본키로 설정하기 위해 사용되는 구조
+
+![최종 ERD](doc\20260915_ERD.png)
+9월 15일 기준 최종 ERD
