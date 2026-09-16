@@ -39,3 +39,48 @@ DB수정시 V2 또는 V1.1 같은 소수점으로 변경해서 새로 만들어�
 
 오늘 정리 엔티티 작성+관련 enum 작성+SQL문 작성+마이그레이션+Hibernate가 검증 
 => 성공!
+
+## 9월 16일
+
+오늘 배운점 :
+repository는 도메인 객체를 실제로 꺼내오는 창구 즉 자바식 CRUD의 실행문
+
+인터페이스를 사용한 이유는 메서드를 선언만 하기위해 인터페이스 사용 상속받은 Jpa가 해당 메서드를 DB SQL로 번역해서 실행
+즉 domain과 repository는 자바식언어로 DB, CRUD를 작성한것 DB는 flyway 마이그레이션이 .sql을 보고 만듦
+
+<T,ID>제네릭은 T는 테이블의 엔티티 클래스, ID는 해당 테이블의 PK타입 
+
+Optional 은 해당 값이 있을 수 도 있고 없을 수도 있다는걸 명시, 나중에 예외처리를 하기 위함
+*DB값은 NOT NULL이지만 조회값이 DB자체에 없을 수도 있가때문에 예외처리*
+
+Page함수는 값으 페이지형식으로 가져옴
+Page<AccessLog> findByStoreIdOrderByOccurredAtDesc(Long storeId, Pageable pageable)
+OrderBy 는 SQL에서 사용하는 Orderby랑 같음
+
+<Repository Query creation from method names 법 팁>
+findBy필드명 — 조건 조회, 결과 1개면 Optional<엔티티>, 여러 개면 List<엔티티>
+existsBy필드명 — 있는지만 확인, boolean
+findTopBy필드명...OrderBy필드명Desc — 조건 맞는 것 중 최신/최상위 1개
+findBy필드1And필드2 — 조건 여러 개 AND
+Page<엔티티> findBy...(..., Pageable pageable) — 목록이 계속 쌓이는 데이터는 페이징
+
+로그인 방식 선택
+세션, 토큰, HTTP Basic Auth 중 모바일 확장성을 고려해 토큰으로 결정
+
+Bean(빈)의 사용용도는 여러 클래스에서 공통되어 쓰는 객체를 미리 Spring에게 만등어 주는 것
+떄문에 개인정보와 같은 신상을 빈으로 만들면 안됨
+빈을 모아두는 클래스에는 @Configuration 어노테이션 적용
+
+Component는 Configuration + Bean을 사용하는 목적과 같은 다른 방법
+Configuration + Bean은 외부 라이브러리를 빈으로 사용할때 사용
+Component는 내가 직접 설계한 클래스를 빈으로 사용할 때 사용
+
+@Value사용법 로직은 그대로 두고 변하는 값읗 가져올 때 혹은 기본 설정값(yaml, prppertise)을 가져올때
+"${}"을 사용해서 값을 가져옴
+
+this 활용법 매개변수와 필드의 이름이 겹칠때 this를 사용해 필드 를 지칭
+
+enum 클래스는 자동적으로 java.lang.Enum클래스를 상속받아사 내장 메소드가 있음 
+ex) enum.ADMIN.name()은 ADMIN이 나온다.
+
+클래스와 이름이 같고 반환값이 없으면 생설자
