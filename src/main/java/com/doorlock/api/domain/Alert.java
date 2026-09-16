@@ -25,7 +25,7 @@ public class Alert {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private AlertrType type;
+    private AlertType type;
 
     @Column(nullable = false)
     private String message;

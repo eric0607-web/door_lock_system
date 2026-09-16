@@ -16,7 +16,7 @@ public class DoorState {
 
     @Id
     @Column(name = "store_id")
-    private Long storeid;
+    private Long storeId;
 
     @OneToOne
     @MapsId
