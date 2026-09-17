@@ -83,4 +83,30 @@ this 활용법 매개변수와 필드의 이름이 겹칠때 this를 사용해 �
 enum 클래스는 자동적으로 java.lang.Enum클래스를 상속받아사 내장 메소드가 있음 
 ex) enum.ADMIN.name()은 ADMIN이 나온다.
 
-클래스와 이름이 같고 반환값이 없으면 생설자
+클래스와 이름이 같고 반환값이 없으면 생성자
+
+
+## 9월17일
+
+오늘 진행도: AuthService, SecurityConfig, SecurityConfig(수정), JwtAuthenticationFilter,DTO3개, AuthController, login.html
+
+오늘 배운점:
+try catch와 throws Exception의 차이 
+try catch는 에러 발생 시 일종의 다른 루트의 제시
+throws Exception는 떠넘기기 호출부에게 넘겨 책임전가
+
+람다식
+함수형 인터페이스를 구현하는 코드를 클래스를 만들지 않고 바로 사용하는 문법
+(매개변수) -> {실행코드} 같은 문법으로 사용
+매개변수가 없을 경우 ()로 사용가능
+메서드 하나만 호출할 경우 ::와 같이 축약해서 사용
+참고-SecurityConfig
+
+@RestController
+@Controller + @ResponseBody 를 합쳐놓은 어노테이션
+리턴값을 뷰 이름으로 해석해서 jsp(뷰)를 찾는 과정을 생략하고, 값 자체를 응답 body로 바로 넘김
+
+레코드 형식
+기존에 DTO를 작성시 필드, Getter등을 사용하여 반복되는 작업이 많았는데 그 과정을 줄여놓은 클래스
+레코드는 불변이 원칙 때문에 DTO에 적합
+(Setter는 사용 불가)
