@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 / 회원가입 테스트</title>
+    <style>
+        body { font-family: sans-serif; max-width: 400px; margin: 40px auth; padding: 0 20px; }
+        h2 { margin-top: 40px; }
+        input, select, button { display: block; width: 100%; margin-bottom: 10px; padding: 8px; box-sizing: border-box; }
+        button { cursor: pointer; }
+        #result { white-space: pre-wrap; background: #f0f0f0; padding: 10px; margin-top: 20px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+<h2>회원가입</h2>
+<input id="signupEmail" placeholder="이메일" value="test@test.com">
+<input id="signupPassword" type="password" placeholder="비밀번호" value="1234">
+<input id="signupName" placeholder="이름" value="철수">
+<select id="signupRole">
+    <option value="OWNER">OWNER</option>
+    <option value="ADMIN">ADMIN</option>
+</select>
+<button onclick="signup()">회원가입</button>
+
+<h2>로그인</h2>
+<input id="loginEmail" placeholder="이메일" value="test@test.com">
+<input id="loginPassword" type="password" placeholder="비밀번호" value="1234">
+<button onclick="login()">로그인</button>
+
+<div id="result"></div>
+
+<script>
+    async function signup() {
+        const response = await fetch("/api/auth/signup", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                email: document.getElementById("signupEmail").value,
+                password: document.getElementById("signupPassword").value,
+                name: document.getElementById("signupName").value,
+                role: document.getElementById("signupRole").value
+            })
+        });
+        const text = await response.text();
+        document.getElementById("result").textContent = "status: " + response.status + "\n" + text;
+    }
+
+    async function login() {
+        const response = await fetch("/api/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                email: document.getElementById("loginEmail").value,
+                password: document.getElementById("loginPassword").value
+            })
+        });
+        const text = await response.text();
+        document.getElementById("result").textContent = "status: " + response.status + "\n" + text;
+    }
+</script>
+
+</body>
+</html>
