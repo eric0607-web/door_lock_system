@@ -1,9 +1,11 @@
 package com.doorlock.api.controller;
 
+import com.doorlock.api.domain.Store;
 import com.doorlock.api.dto.StoreCreateRequest;
 import com.doorlock.api.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,8 +21,16 @@ public class StoreController {
         return ResponseEntity.ok(storeId);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Store> getStore(@PathVariable Long id, Authentication authentication){
+        Store store = storeService.getStore(id, authentication.getName());
+        return ResponseEntity.ok(store);
+    }
+
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> handleIllegalArgument(IllegalArgumentException e){
         return ResponseEntity.badRequest().body(e.getMessage());
     }
+
+
 }

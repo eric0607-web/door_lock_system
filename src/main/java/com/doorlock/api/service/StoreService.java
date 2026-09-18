@@ -48,4 +48,20 @@ public class StoreService {
 
         return store.getId();
     }
+
+    public Store getStore(Long storeId, String requesterEmail){
+        User requester =  userRepository.findByEmail(requesterEmail)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new IllegalArgumentException("가맹점을 찾을 수 없습니다."));
+
+        if (requester.getRole() == Role.OWNER){
+            if (requester.getStore() == null || !requester.getStore().getId().equals(storeId)){
+                throw new IllegalArgumentException("본인 가맹점만 조회할 수 있습니다.");
+            }
+        }
+
+        return store;
+    }
 }
